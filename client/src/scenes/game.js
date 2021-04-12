@@ -18,11 +18,17 @@ export default class Game extends Phaser.Scene {
   }
 
   create () {
+    this.isPlayerOne = false
     console.log('socket')
     this.socket = io('http://localhost:3000')
 
     this.socket.on('connect', function () {
       console.log('Connected!')
+    })
+
+    this.socket.on('isPlayerOne', function () {
+      self.isPlayerOne = true
+      console.log('isPlayerOne = ', self.isPlayerOne)
     })
 
     this.dealText = this.add.text(75, 350, ['DEAL CARDS']).setFontSize(18).setFontFamily('Trebuchet MS').setColor('#00ffff').setInteractive()
