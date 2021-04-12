@@ -1,0 +1,26 @@
+{
+  "name": "some-cards-i-guess",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "eslint": "^7.23.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "socket.io": "^4.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacSmith13/some-cards-i-guess.git"
+  },
+  "author": "Isaac Smith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IsaacSmith13/some-cards-i-guess/issues"
+  },
+  "homepage": "https://github.com/IsaacSmith13/some-cards-i-guess#readme"
+}

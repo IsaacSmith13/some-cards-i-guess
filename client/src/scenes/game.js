@@ -1,5 +1,6 @@
 import { Card } from '../objects/card';
 import { Zone } from '../objects/zone';
+import io from 'socket.io-client';
 
 export default class Game extends Phaser.Scene {
   constructor() {
@@ -16,6 +17,13 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
+    console.log('socket')
+    this.socket = io('http://localhost:3000');
+
+    this.socket.on('connect', function () {
+      console.log('Connected!');
+    });
+
       this.dealText = this.add.text(75, 350, ['DEAL CARDS']).setFontSize(18).setFontFamily('Trebuchet MS').setColor('#00ffff').setInteractive();
 
       let self = this;
@@ -31,6 +39,8 @@ export default class Game extends Phaser.Scene {
         this.zone = new Zone(this)
         this.dropZone = this.zone.renderZone()
         this.outline = this.zone.renderOutline(this.dropZone)
+
+
 
       this.dealText.on('pointerdown', function () {
               self.dealCards();
