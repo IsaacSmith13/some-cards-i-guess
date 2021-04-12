@@ -1,4 +1,5 @@
 import { Dealer } from '../objects/dealer'
+import { Card } from '../objects/card'
 import { Zone } from '../objects/zone'
 import io from 'socket.io-client'
 import Phaser from 'phaser'
@@ -36,6 +37,16 @@ export default class Game extends Phaser.Scene {
     this.socket.on('dealCards', function () {
       self.dealer.dealCards()
       self.dealText.disableInteractive()
+    })
+
+    this.socket.on('cardPlayed', function (gameObject, isPlayerOne) {
+      if (isPlayerOne !== self.isPlayerOne) {
+        const sprite = gameObject.textureKey
+        self.opponentCards.shift().destroy()
+        self.dropZone.data.values.cards++
+        const card = new Card(self)
+        card.render(((self.dropZone.x - 350) + (self.dropZone.data.values.cards * 50)), (self.dropZone.y), sprite).disableInteractive()
+      }
     })
 
     this.dealText = this.add.text(75, 350, ['DEAL CARDS']).setFontSize(18).setFontFamily('Trebuchet MS').setColor('#00ffff').setInteractive()
@@ -81,6 +92,7 @@ export default class Game extends Phaser.Scene {
       gameObject.x = (dropZone.x - 350) + (dropZone.data.values.cards * 50)
       gameObject.y = dropZone.y
       gameObject.disableInteractive()
+      self.socket.emit('cardPlayed', gameObject, self.isPlayerOne)
     })
   }
 
